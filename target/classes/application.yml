@@ -2,12 +2,34 @@ spring:
   application:
     name: "configserver"
   profiles:
-    active: native
+    # active: native
+    active: git
   cloud:
     config:
       server:
-        native:
-#          search-locations: "classpath:/config"
-          search-locations: "file:///D://Workspaces//LearningCourses//MasterMicroservicesWithSpringBootDockerKubernetes//config"
+        # native:
+        #          search-locations: "classpath:/config"
+        # search-locations: "file:///D://Workspaces//LearningCourses//MasterMicroservicesWithSpringBootDockerKubernetes//config"
+        git:
+          uri: "https://github.com/nguyentruongtoan1309/spring-boot-microservice-config.git"
+          default-label: main # branch
+          timeout: 5
+          clone-on-start: true # allow clone repo during start config server
+          force-pull: true
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+encrypt:
+  key: "01936e91-6f06-7c18-b1bf-6e8d41245da6"
+ 
 server:
   port: 8071
